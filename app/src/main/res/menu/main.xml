@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.acrcloud.rec.demo.SearchActivity" >
+
+    <item
+        android:id="@+id/action_help"
+        android:title="Help" />
+    <item
+        android:id="@+id/action_contact"
+        android:title="Contact  Us" />
+    <item
+        android:id="@+id/action_sign_out"
+        android:title="Sign  Out" />
+
+</menu>
