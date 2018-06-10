@@ -99,10 +99,10 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
         //this.mConfig.acrcloudResultWithAudioListener = this;
 
         this.mConfig.context = this;
-        this.mConfig.host = "identify-ap-southeast-1.acrcloud.com";
+        this.mConfig.host = "xxx"; //輸入acr-cloud主機資訊
         this.mConfig.dbPath = path; // offline db path, you can change it with other path which this app can access.
-        this.mConfig.accessKey = "40ad2fbb3a9893816f99d5004ab37f7b";
-        this.mConfig.accessSecret = "v9QY2XRBCHBHXytKwlCa7UWlPgZZd2cjvYObzZcw";
+        this.mConfig.accessKey = "xxx";
+        this.mConfig.accessSecret = "xxx";
         this.mConfig.protocol = ACRCloudConfig.ACRCloudNetworkProtocol.PROTOCOL_HTTP; // PROTOCOL_HTTPS
         this.mConfig.reqMode = ACRCloudConfig.ACRCloudRecMode.REC_MODE_REMOTE;
 

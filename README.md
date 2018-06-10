@@ -1,6 +1,6 @@
 # AD-Cloud
 
-<h2 font-color="green">主要功能</
+<h2 style="background-color:yellow">主要功能</
 h2>
 <ul>
 	<li>廣告音頻識別</li>
@@ -8,7 +8,7 @@ h2>
 	<li>廣告商新增、移除、修改廣告</li>
 </ul>
 
-<h2 font-color="green">其他功能</
+<h2 style="background-color:yellow">其他功能</
 h2>
 <ul>
 	<li>標題欄小幫手、聯絡我們</li>

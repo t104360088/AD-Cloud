@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,24 +18,18 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.content.Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY;
 
 public class AddAdvertisementActivity extends AppCompatActivity {
 
@@ -226,10 +217,6 @@ public class AddAdvertisementActivity extends AppCompatActivity {
 
 
 
-
-       /* if (!TextUtils.isEmpty(input_adname)&&!TextUtils.isEmpty(input_url)&&!TextUtils.isEmpty(input_file_path))
-        { */
-
             progressBar.setVisibility(View.VISIBLE);  //顯現進度條
 
             //上架時間設定
@@ -271,15 +258,6 @@ public class AddAdvertisementActivity extends AppCompatActivity {
             inputUrl.setText("");
             inputAdName.setText("");
             showAudioPath.setText("");
-
-      //  }
-
-       /* else
-            Toast.makeText(this, R.string.Ad_data_incomplete, Toast.LENGTH_SHORT).show(); */
-
-       /* MemberDatabase user = new MemberDatabase(adname, url);
-
-        mFirebaseDatabase.child(userId).setValue(user); */
 
     }
 
