@@ -62,11 +62,12 @@
             android:layout_marginTop="20dip"
             android:background="@color/colorAccent"
             android:text="@string/btn_login"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_reset_password"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@null"
@@ -78,7 +79,7 @@
 
         <Button
             android:id="@+id/btn_signup"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@null"

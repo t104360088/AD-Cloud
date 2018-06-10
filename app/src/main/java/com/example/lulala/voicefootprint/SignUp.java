@@ -27,7 +27,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        setTitle("Register");
+        setTitle(R.string.SignUp_title);
 
         auth = FirebaseAuth.getInstance();
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
@@ -59,17 +59,17 @@ public class SignUp extends AppCompatActivity {
                 String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_empty_email, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_empty_password , Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_minimum_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -79,13 +79,13 @@ public class SignUp extends AppCompatActivity {
                         .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignUp.this, "Apply  state : " + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUp.this, getString(R.string.toast_account_apply_state) + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(SignUp.this, "Authentication failed. " + task.getException(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(SignUp.this, getString(R.string.toast_authentication_failed) + task.getException(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });

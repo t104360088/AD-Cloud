@@ -2,14 +2,19 @@ package com.example.lulala.voicefootprint;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.Locale;
 
 public class FirstActivity extends AppCompatActivity {
 
@@ -38,6 +43,8 @@ public class FirstActivity extends AppCompatActivity {
 
 
     }
+
+
     //創建標題功能項
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,7 +57,13 @@ public class FirstActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_exit:
-                dialog();
+                exit_dialog();
+                break;
+
+            case R.id.action_help:
+                help_dialog();
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -60,25 +73,44 @@ public class FirstActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode,KeyEvent event){
 
         if(keyCode==KeyEvent.KEYCODE_BACK && event.getRepeatCount()==0){   //確定按下退出鍵and防止重複按下退出鍵
-            dialog();
+            exit_dialog();
         }
         return false;
     }
 
-    //彈跳視窗
-    public void dialog(){
+    //說明
+    public void help_dialog(){
         AlertDialog dialog = new AlertDialog.Builder(FirstActivity.this)
-                .setTitle("Alert  Dialog")
+                .setTitle(R.string.alert_dialog_help_title)
                 .setIcon(R.mipmap.ic_launcher)
-                .setMessage("Do you want to get out of AD Cloud?")
+                .setMessage(R.string.alert_dialog_help_message_first)
                 .setCancelable(false)  //關閉手機功能鍵
-                .setPositiveButton("YES",new DialogInterface.OnClickListener(){
+                .setPositiveButton(R.string.alert_dialog_close_btn,new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+
+                .show();
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+    }
+
+    //離開的彈跳視窗
+    public void exit_dialog(){
+        AlertDialog dialog = new AlertDialog.Builder(FirstActivity.this)
+                .setTitle(R.string.alert_dialog_title)
+                .setIcon(R.mipmap.ic_launcher)
+                .setMessage(R.string.alert_dialog_getout_message)
+                .setCancelable(false)  //關閉手機功能鍵
+                .setPositiveButton(R.string.alert_dialog_positive_btn,new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
                 })
-                .setNegativeButton("NO",new DialogInterface.OnClickListener(){
+                .setNegativeButton(R.string.alert_dialog_negative_btn,new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

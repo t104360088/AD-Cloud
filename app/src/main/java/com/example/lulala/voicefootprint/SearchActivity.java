@@ -16,6 +16,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -29,7 +31,7 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
     private ACRCloudClient mClient;
     private ACRCloudConfig mConfig;
 
-    private TextView mVolume, mResult, tv_time;
+    private TextView mVolume, mResultTitle, mResultUrl, tv_time;
 
     private boolean mProcessing = false;
     private boolean initState = false;
@@ -43,7 +45,7 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        setTitle("Search the AD");
+        setTitle(R.string.SearchActivity_title);
 
         path = Environment.getExternalStorageDirectory().toString()
                 + "/acrcloud/model";
@@ -54,7 +56,8 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
         }
 
         mVolume = (TextView) findViewById(R.id.volume);
-        mResult = (TextView) findViewById(R.id.result);
+        mResultTitle = (TextView) findViewById(R.id.resultTitle);
+        mResultUrl= (TextView) findViewById(R.id.resultUrl);
         tv_time = (TextView) findViewById(R.id.time);
 
         ImageButton startBtn = (ImageButton) findViewById(R.id.start);
@@ -98,10 +101,11 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
         this.mConfig.context = this;
         this.mConfig.host = "identify-ap-southeast-1.acrcloud.com";
         this.mConfig.dbPath = path; // offline db path, you can change it with other path which this app can access.
-        this.mConfig.accessKey = "7f67424ce3556cc068df7e7e39edf1f4";
-        this.mConfig.accessSecret = "1XgwFZxgWqSTkbh1bY2mODBmhdzWKS7OLxjG8t3H";
+        this.mConfig.accessKey = "40ad2fbb3a9893816f99d5004ab37f7b";
+        this.mConfig.accessSecret = "v9QY2XRBCHBHXytKwlCa7UWlPgZZd2cjvYObzZcw";
         this.mConfig.protocol = ACRCloudConfig.ACRCloudNetworkProtocol.PROTOCOL_HTTP; // PROTOCOL_HTTPS
         this.mConfig.reqMode = ACRCloudConfig.ACRCloudRecMode.REC_MODE_REMOTE;
+
         //this.mConfig.reqMode = ACRCloudConfig.ACRCloudRecMode.REC_MODE_LOCAL;
         //this.mConfig.reqMode = ACRCloudConfig.ACRCloudRecMode.REC_MODE_BOTH;
 
@@ -114,7 +118,6 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
         }
     }
 
-
     public void start() {
         if (!this.initState) {
             Toast.makeText(this, "init error", Toast.LENGTH_SHORT).show();
@@ -124,10 +127,11 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
         if (!mProcessing) {
             mProcessing = true;
             mVolume.setText("");
-            mResult.setText("");
+            mResultTitle.setText("");
+            mResultUrl.setText("");
             if (this.mClient == null || !this.mClient.startRecognize()) {
                 mProcessing = false;
-                mResult.setText("start error!");
+                mResultTitle.setText("start error!");
             }
             startTime = System.currentTimeMillis();
         }
@@ -147,7 +151,8 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
             mProcessing = false;
             this.mClient.cancel();
             tv_time.setText("");
-            mResult.setText("");
+            mResultTitle.setText("");
+            mResultUrl.setText("");
         }
     }
 
@@ -159,7 +164,8 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
             mProcessing = false;
         }
 
-        String tres = "\n";
+        String tres ="";
+        String showAdUrl = "";
 
         try {
             JSONObject j = new JSONObject(result);
@@ -187,7 +193,7 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
                         JSONArray artistt = tt.getJSONArray("artists");
                         JSONObject art = (JSONObject) artistt.get(0);
                         String artist = art.getString("name");
-                        tres = tres + (i+1) + ".  Title: " + title + "    Artist: " + artist + "\n";
+                        tres = tres + (i+1) + ".Title: " + title + "\nArtist: " + artist + "\n";
                     }
                 }
                 if (metadata.has("streams")) {
@@ -196,7 +202,7 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
                         JSONObject tt = (JSONObject) musics.get(i);
                         String title = tt.getString("title");
                         String channelId = tt.getString("channel_id");
-                        tres = tres + (i+1) + ".  Title: " + title + "    Channel Id: " + channelId + "\n";
+                        tres = tres + (i+1) + ".Title: " + title + "    Channel Id: " + channelId + "\n";
                     }
                 }
                 if (metadata.has("custom_files")) {
@@ -204,14 +210,17 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
                     for(int i=0; i<musics.length(); i++) {
                         JSONObject tt = (JSONObject) musics.get(i);
                         String title = tt.getString("title");
-                        tres = tres + (i+1) + ".  Title: " + title + "\n";
+                        String adUrl = tt.getString("adUrl");
+                        tres = tres + (i+1) + ".Title: " + title ;
+                        showAdUrl = "Url: " + adUrl ;
 
-                        Uri uri = Uri.parse(title);               //跳轉網頁
+
+                     /*   Uri uri = Uri.parse(title);               //跳轉網頁
                         Intent it = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(it);
+                        startActivity(it); */
                     }
                 }
-                tres = tres + "\n\n" + result;
+              //  tres = tres + "\n" + result;  //搜尋結果與系統資訊相加
             }else{
                 tres = result;
             }
@@ -220,12 +229,15 @@ public class SearchActivity extends AppCompatActivity implements IACRCloudListen
             e.printStackTrace();
         }
 
-        mResult.setText(tres);
+        mResultTitle.setText(tres);  //秀出結果
+        mResultUrl.setText(showAdUrl);
+        mResultUrl.setAutoLinkMask(Linkify.WEB_URLS);
+        mResultUrl.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
     public void onVolumeChanged(double volume) {
-        long time = (System.currentTimeMillis() - startTime) / 1000;
+        long time = (System.currentTimeMillis() - startTime) / 1000 ;
         mVolume.setText("Volume：" + volume + "\n\nRecording time：" + time + " s");
     }
 

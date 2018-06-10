@@ -24,13 +24,14 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="50dp"
-            android:text="Welcome to AD Cloud"
+            android:gravity="center"
+            android:text="@string/welcome_message"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="27sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -45,7 +46,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:background="@color/colorAccent"
-                android:text="Search AD"
+                android:text="@string/SearchActivity_title"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textSize="18sp" />
 
@@ -55,10 +56,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorAccent"
-                android:text="Member Login"
+                android:text="@string/LoginActivity_title"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textSize="18sp" />
+
         </LinearLayout>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

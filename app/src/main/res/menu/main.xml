@@ -4,12 +4,12 @@
 
     <item
         android:id="@+id/action_help"
-        android:title="Help" />
+        android:title="@string/help" />
     <item
         android:id="@+id/action_contact"
-        android:title="Contact  Us" />
+        android:title="@string/contact_us" />
     <item
         android:id="@+id/action_sign_out"
-        android:title="Sign  Out" />
+        android:title="@string/sign_out" />
 
 </menu>
