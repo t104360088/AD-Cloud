@@ -5,4 +5,4 @@
 
 廣告雲提供廣告商在此平台上架廣告音頻與電商連結，當使用者使用手機時進行環境語音辨識，當辨識到對應的廣告資訊時顯示對應的電商連結，讓使用者不會錯過任何一個有興趣的廣告內容
 
-https://user-images.githubusercontent.com/32124047/160265233-c30e21f6-d1b9-42fe-9a1c-cc052b622aaa.mp4
+https://user-images.githubusercontent.com/32124047/160265528-8574a198-6802-4ca6-a0fb-ddae942bd404.mp4
